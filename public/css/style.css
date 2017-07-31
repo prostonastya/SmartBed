@@ -44,7 +44,7 @@ button, input[type="submit"]{
 	cursor: pointer;
 }
 
-.header, .footer{
+header, footer{
 
 	height: 150px;
 	background: lightseagreen;
@@ -68,7 +68,7 @@ button, input[type="submit"]{
 }
 
 .container{
-	width: 1280px;
+	width: 100%;
     margin: 0 auto;
     padding: 0 10px;
     overflow: hidden;
