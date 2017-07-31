@@ -21,10 +21,10 @@
                 <ul class="list">
                     <li>Подогрев
                         <form action="/" method="POST">
-                            <select name="mode">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
+                            <select name="heating" id="heating">
+                                <option value=1>1</option>
+                                <option value=2>2</option>
+                                <option value=3>3</option>
                             </select>
                             <button type="submit">Сохранить изменения</button>
                         </form>
@@ -34,12 +34,17 @@
                     <li>Фича 4</li>
                 </ul>
             </div>
-            <div class="content"> <img class="main_photo" src="img/bed_simple.jpg" alt=""> </div>
+            <div class="content"> 
+                <img class="main_photo" src="img/bed_simple.jpg" alt=""> 
+                <img class="heat_photo" src="img/thermometer.png" alt="">
+            </div>
         </div>
     </div>
     <div class="footer">
         <div class="container"> </div>
     </div>
+
+    <script src = "js/plugin.js"></script>
 </body>
 
 </html>

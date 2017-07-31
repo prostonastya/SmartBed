@@ -13,5 +13,5 @@ app.post('/', function (req, res) {
     res.send(req.body.mode);
 });
 app.listen(3000, function () {
-    console.log('Example app listening on port 3000!');
+    console.log('App listening on port 3000!');
 });
