@@ -10,7 +10,8 @@ html(lang='en')
         .logo
           a(href='index.html')
             img(src='img/logo.png', alt='')
-        .name Super smart bed
+        .name=somevar
+     
     main
       .flex-container
         .sidebar
@@ -27,12 +28,24 @@ html(lang='en')
             li Фича 3
             li Фича 4
         .content
+        
+            
           img.main_photo(src='img/bed_simple.jpg', alt='')
           img.heat_photo(src='img/thermometer.png', alt='' )
-    footer
-      .flex-container  
-    script(src='js/plugin.js')
+          
+          
 
+          
+          
+    footer
+      .flex-container
+    script.
+      if (1==1)
+        console.log(somevar)
+    script(src='js/plugin.js')
+//.name Super smart bed
+    if somevar==1
+      console.log("Cool!")
 
 
 
