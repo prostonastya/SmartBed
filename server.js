@@ -3,27 +3,21 @@ var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
 var fs = require('fs');
-
+var mode = require('./public/temp.json');
 app.use(bodyParser());
-
 app.get('/', function (req, res) {
-//    res.sendFile(path.join(__dirname + '/index.html'));
-
-//    res.render('index',{ title: 'Hey', message: 'Hello there!'});
+    //    res.sendFile(path.join(__dirname + '/index.html'));
+    //    res.render('index',{ title: 'Hey', message: 'Hello there!'});
     //res.send(indexTemplate(req.param("content"), req.param("color")));
-    
-    res.send(indexTemplate());
-    app.use(express.static(__dirname + '/public')); 
-    
+    console.log(mode.heat);
+    res.send(indexTemplate(mode.heat));
+    app.use(express.static(__dirname + '/public'));
 });
 
 function indexTemplate(heat) {
-//    return html = '<body style="background-color: ' + bodyBGColor + '">' + bodyContent + '</body>'; 
-    
-    
+    //    return html = '<body style="background-color: ' + bodyBGColor + '">' + bodyContent + '</body>'; 
     var header = `<!DOCTYPE html> <html lang="en"><head><meta name="viewport",content="width=device-width, initial-scale=1.0"><title>Smart Bed</title><link rel="stylesheet" href="css/style.css"></head><body>
     <header><div class="flex-container"><div class="logo"><a href="index.html"> <img src="img/logo.png" alt=""></a></div><div class="name">Super smart bed</div></div></header>`;
-    
     var main = `<main>
         <div class="flex-container">
             <div class="sidebar">
@@ -49,7 +43,6 @@ function indexTemplate(heat) {
             </div>
         </div>
     </main>`;
-    
     var footer = `<footer>
         <div class="flex-container"> </div>
     </footer>
@@ -58,34 +51,22 @@ function indexTemplate(heat) {
 </body>
 
 </html>`;
-    
     var res = header + main + footer;
-    
     return res;
-    
 }
-
-
 app.post('/', function (req, res) {
-    
-//    res.send(req.body.heating);
-    var heat=req.body.heating;
-    res.send(indexTemplate(heat));
-    
-    
+    //    res.send(req.body.heating);
     var saveTemp = {
-    heat: req.body.heating
+        heat: req.body.heating
     };
 
-function saveToPublicFolder(saveTemp) {
-  fs.writeFile('./public/temp.json', JSON.stringify(saveTemp));
-}
-
-saveToPublicFolder(saveTemp);
-    
+    function saveToPublicFolder(saveTemp) {
+        fs.writeFile('./public/temp.json', JSON.stringify(saveTemp));
+    }
+    var heat = req.body.heating;
+    res.send(indexTemplate(heat));
+    saveToPublicFolder(saveTemp);
 });
-
-
 /*
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -108,10 +89,6 @@ app.post('/', function (req, res) {
 //    res.send(req.body);
 //});
 */
-
-
-
-
 app.listen(3000, function () {
     console.log('App listening on port 3000!');
 });
