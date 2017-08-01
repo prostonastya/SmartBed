@@ -3,14 +3,25 @@ var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
 var fs = require('fs');
-var mode = require('./public/temp.json');
+//var mode = require('./public/temp.json');
 app.use(bodyParser());
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 app.get('/', function (req, res) {
     //    res.sendFile(path.join(__dirname + '/index.html'));
     //    res.render('index',{ title: 'Hey', message: 'Hello there!'});
     //res.send(indexTemplate(req.param("content"), req.param("color")));
-    console.log(mode.heat);
+    //    var contents = fs.readFile('./public/temp.json', 'utf8', function (err, contents) {
+    //        console.log(contents);
+    //    });
+    //    var mode = JSON.parse(contents);
+    //    console.log(mode[heat]);
+    var mode = JSON.parse(fs.readFileSync('./public/temp.json', 'utf8'));
     res.send(indexTemplate(mode.heat));
+    //    fs.readFile('./public/temp.json', 'utf8', function (err, contents) {
+    //        console.log(contents);
+    //    });
     app.use(express.static(__dirname + '/public'));
 });
 
