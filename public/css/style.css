@@ -56,17 +56,13 @@ header .flex-container{
 	align-items: center;
 }
 
-/*.logo{
-	margin-top: 20px;
-	margin-left: 15px;
-}*/
 .logo a img{
-	width: 150px;
+	/*width: 150px;*/
 	height: 150px;
-	/*float: left;*/
+	
 }
 .name{
-	/*float: left;*/
+	
     color: white;
     font-size: 40px;
     margin-left: 50px;
@@ -93,8 +89,18 @@ header .flex-container{
 	
 }
 
+#heating{
+	font-size: 20px;
+	width: 100px;
+}
+
+button[type = "submit"]{
+	font-size: 20px;
+	background: lightseagreen;
+}
+
 .list li{
-	margin-left: 100px;
+	/*margin-left: 100px;*/
 	font-size: 40px;
 	font-weight: bold;
 	color: black;
@@ -106,27 +112,38 @@ header .flex-container{
 }
 
 .content{
+	float: left;
+
 	width: 70%;
 	height: 600px;
 	background: gainsboro;
 	
 }
 
+.term{
+	display: inline-block;
+	width: 150px;
+	height: 450px;
+	margin-top: 20px;	
+	vertical-align: middle;	
+}
+
 .main_photo{
 	margin-left: 50px;
-	margin-top: 50px;	
+	margin-top: 50px;
+	vertical-align: middle;	
 }
 
 .Op_1{
-	opacity:0.4;
+	background-image: url(../img/term_2.png);
 }
 
 .Op_2{
-	opacity:0.7;
+	background-image: url(../img/term_3.png);
 }
 
 .Op_3{
-	opacity:1.0;
+	background-image: url(../img/term_4.png);
 }
 
 

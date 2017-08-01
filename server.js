@@ -22,14 +22,14 @@ function indexTemplate(heat) {
         <div class="flex-container">
             <div class="sidebar">
                 <ul class="list">
-                    <li>Heating
+                    <li>Change the temperature mode
                         <form action="/" method="POST">
                             <select name="heating" id="heating">
-                                <option value=1>1</option>
-                                <option value=2>2</option>
-                                <option value=3>3</option>
+                                <option value=1>cool</option>
+                                <option value=2>middle</option>
+                                <option value=3>hot</option>
                             </select>
-                            <button type="submit">Сохранить изменения</button>
+                            <button type="submit">Save Changes</button>
                         </form>
                     </li>
                     <li>Фича 2</li>
@@ -38,13 +38,15 @@ function indexTemplate(heat) {
                 </ul>
             </div>
             <div class="content"> 
-                <img class="main_photo" src="img/bed_simple.jpg" alt=""> 
-                <img class="heat_photo Op_${heat}" src="img/thermometer.png" alt="">
+                <img class="main_photo" src="img/bed_simple.png" alt=""> 
+                <div class="term Op_${heat}"></div>
+               
             </div>
         </div>
     </main>`;
     var footer = `<footer>
-        <div class="flex-container"> </div>
+        <div class="flex-container">         
+        </div>
     </footer>
 
     <script src = "js/plugin.js"></script>
