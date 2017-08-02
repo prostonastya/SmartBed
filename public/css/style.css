@@ -99,12 +99,12 @@ button[type = "submit"]{
 	background: lightseagreen;
 }
 
-.list li{
-	/*margin-left: 100px;*/
+.list li{	
 	font-size: 40px;
 	font-weight: bold;
 	color: black;
 	margin-top: 50px;
+	text-align: center;
 }
 
 .list li+li{
@@ -113,7 +113,6 @@ button[type = "submit"]{
 
 .content{
 	float: left;
-
 	width: 70%;
 	height: 600px;
 	background: gainsboro;

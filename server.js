@@ -3,30 +3,25 @@ var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
 var fs = require('fs');
-//var mode = require('./public/temp.json');
+
 app.use(bodyParser());
 app.use(bodyParser.urlencoded({
     extended: false
 }));
-app.get('/', function (req, res) {
-    //    res.sendFile(path.join(__dirname + '/index.html'));
-    //    res.render('index',{ title: 'Hey', message: 'Hello there!'});
-    //res.send(indexTemplate(req.param("content"), req.param("color")));
-    //    var contents = fs.readFile('./public/temp.json', 'utf8', function (err, contents) {
-    //        console.log(contents);
-    //    });
-    //    var mode = JSON.parse(contents);
-    //    console.log(mode[heat]);
+
+
+
+app.get('/', function (req, res) {   
+   
     var mode = JSON.parse(fs.readFileSync('./public/temp.json', 'utf8'));
     res.send(indexTemplate(mode.heat));
-    //    fs.readFile('./public/temp.json', 'utf8', function (err, contents) {
-    //        console.log(contents);
-    //    });
+ 
     app.use(express.static(__dirname + '/public'));
 });
 
+
 function indexTemplate(heat) {
-    //    return html = '<body style="background-color: ' + bodyBGColor + '">' + bodyContent + '</body>'; 
+ 
     var header = `<!DOCTYPE html> <html lang="en"><head><meta name="viewport",content="width=device-width, initial-scale=1.0"><title>Smart Bed</title><link rel="stylesheet" href="css/style.css"></head><body>
     <header><div class="flex-container"><div class="logo"><a href="index.html"> <img src="img/logo.png" alt=""></a></div><div class="name">Super smart bed</div></div></header>`;
     var main = `<main>
@@ -61,14 +56,15 @@ function indexTemplate(heat) {
     </footer>
 
     <script src = "js/plugin.js"></script>
-</body>
+    </body>
+    </html>`;
 
-</html>`;
     var res = header + main + footer;
     return res;
 }
+
 app.post('/', function (req, res) {
-    //    res.send(req.body.heating);
+  
     var saveTemp = {
         heat: req.body.heating
     };
@@ -80,28 +76,7 @@ app.post('/', function (req, res) {
     res.send(indexTemplate(heat));
     saveToPublicFolder(saveTemp);
 });
-/*
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-app.post('/', function (req, res) {
-//           res.send(JSON.stringify(req.body));
-    
-//    res.send(req.body.heating);
-    var heat=req.body.heating;
-    res.render('index',{somevar:heat});
-//    var heating=req.body.heating;
-});
 
-//app.get('/', function (req, res) {
-//  res.render('index', { title: 'Hey', message: 'Hello there!'});
-//});
-
-//app.post('/', function (req, res) {
-//    console.dir(req.body);
-//    //    res.send(JSON.stringify(req.body));
-//    res.send(req.body);
-//});
-*/
 app.listen(3000, function () {
     console.log('App listening on port 3000!');
 });
