@@ -19,13 +19,13 @@ function indexTemplate(heat) {
     <header><div class="flex-container"><div class="logo"><a href="index.html"> <img src="img/logo.png" alt=""></a></div><div class="name">Super smart bed</div></div></header>`;
     var modes=['cool','middle','hot'];
     var select='';
-        for(let i = 0;i<3;i++){
+        for(let i = 1;i<=3;i++){
         
-            if(i===heat){
-       select += `<option value=${i+1}>${modes[i]} selected</option>`;
+            if(i==heat){
+       select += `<option value=${i} selected>${modes[i-1]}</option>`;
             }
             else{
-                select += `<option value=${i+1}>${modes[i]}</option>`;
+                select += `<option value=${i}>${modes[i-1]}</option>`;
             }
     }
     
