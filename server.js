@@ -6,6 +6,8 @@ var fs = require('fs');
 
 app.use(bodyParser());
 
+
+// load index page
 app.get('/', function (req, res) {   
    
     var mode = JSON.parse(fs.readFileSync('./public/temp.json', 'utf8'));
@@ -34,11 +36,11 @@ function indexTemplate(heat) {
             <div class="sidebar">
                 <ul class="list">
                     <li>Change the temperature mode
-                        <form action="/" method="POST">
+                        <form action="/mode" method="POST">
                             <select name="heating" id="heating"> 
                                 ${select}                               
                             </select>
-                            <button>Save Changes</button>
+                            <input type="button" value="Save Changes" id="SaveTemp">
                         </form>
                     </li>
                     <li>Фича 2</li>
@@ -64,20 +66,26 @@ function indexTemplate(heat) {
     return res;
 }
 
-app.post('/', function (req, res) {
-  
-    var saveTemp = {
-        heat: req.body.heating
-    };
+app.post('/mode', (req, res) => {
+ 
+    console.log(req.body);  
+ 
+    console.log(req.body.heat);
+   
+    saveToPublicFolder(req.body);
 
-    function saveToPublicFolder(saveTemp) {
-        fs.writeFile('./public/temp.json', JSON.stringify(saveTemp));
-    }
-    var heat = req.body.heating;
-    res.send(indexTemplate(heat));
-    
-    saveToPublicFolder(saveTemp);
+    function saveToPublicFolder(data) {
+        fs.writeFile('./public/temp.json', JSON.stringify(data), function(){
+            console.log('Finished'); 
+        });
+        res.send(req.body);        
+    }    
+
+  res.end();
+
 });
+
+
 
 app.listen(3000, function () {
     console.log('App listening on port 3000!');

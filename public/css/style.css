@@ -25,8 +25,7 @@ a {
 a:hover {
 	text-decoration: none;
 }
-ul {
-	/*margin: 0;*/
+ul{	
 	list-style: none;
 	/*padding: 0;*/
 }
@@ -56,8 +55,7 @@ header .flex-container{
 	align-items: center;
 }
 
-.logo a img{
-	/*width: 150px;*/
+.logo a img{	
 	height: 150px;
 	
 }
@@ -65,16 +63,8 @@ header .flex-container{
 	
     color: white;
     font-size: 40px;
-    margin-left: 50px;
-    /*margin-top: 40px;*/
+    margin-left: 50px;    
 }
-
-/*.container{
-	width: 100%;
-    margin: 0 auto;
-    padding: 0 10px;
-    overflow: hidden;
-}*/
 
 .flex-container{
 	display:flex;
@@ -94,10 +84,11 @@ header .flex-container{
 	width: 100px;
 }
 
-button[type = "submit"]{
+input[type="button"]{
 	font-size: 20px;
 	background: lightseagreen;
 }
+
 
 .list li{	
 	font-size: 40px;

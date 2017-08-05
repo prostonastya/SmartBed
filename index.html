@@ -21,13 +21,14 @@
             <div class="sidebar">
                 <ul class="list">
                     <li>Change the temperature mode
-                        <form action="/" method="POST">
+                        <form action="/mode" method="POST">
                             <select name="heating" id="heating">
                                 <option value=1>cool</option>
                                 <option value=2>middle</option>
                                 <option value=3>hot</option>
                             </select>
-                            <button type="submit">Save Changes</button>
+                            <input type="button" value="Save Changes" id="SaveTemp">
+                            <!-- <button type="submit">Save Changes</button> -->
                         </form>
                     </li>
                     <li>Фича 2</li>

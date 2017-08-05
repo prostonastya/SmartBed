@@ -1,39 +1,78 @@
 var select = document.getElementById('heating');
 var val = select.options[select.selectedIndex].value; 
+var buttonTemp = document.getElementById('SaveTemp');
 
 
 var imgTerm = document.querySelector('.term');
 
 
-// if (val == 1){
-// 	select.options[0].setAttribute('selected', '')
-// } else {
-// 	if (val == 2){
-// 		select.options[1].setAttribute('selected', '')
-// 	} else {
-// 		select.options[2].setAttribute('selected', '')
-// 	}
+buttonTemp.addEventListener('click', ChangeTempMode);
+
+function ChangeTempMode(){
+	var val = select.options[select.selectedIndex].value; 
+
+	let mode = {};
+
+    mode['heat'] = val;
+    console.log(mode);
+
+    let data = JSON.stringify(mode);
+
+
+    fetch('/mode', {
+        headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+        },
+        method : 'POST',
+        body: JSON.stringify(mode)
+      	}).then(function(res){      	
+        return res.json()        
+    	}). then(function (data) {  
+    	console.log('Request succeeded with JSON response', data); 
+    	ChangePictureClass(data);
+
+
+
+    	}).catch(function(error) {  
+    	console.log('Request failed', error);  
+  	});
+
+}
+
+function ChangePictureClass(data){
+	switch (data.heat) {
+			case '1': 
+			imgTerm.classList.remove('Op-2');
+			imgTerm.classList.remove('Op-3');
+			imgTerm.classList.add('Op-1'); break;
+
+		    case '2': 
+		    imgTerm.classList.remove('Op-1');
+		    imgTerm.classList.remove('Op-3');
+		    imgTerm.classList.add('Op-2'); break;
+
+		    case '3': 
+		    imgTerm.classList.remove('Op-1');
+		    imgTerm.classList.remove('Op-2');
+		    imgTerm.classList.add('Op-3'); break;
+		}
+}
+
+// switch (select.options[select.selectedIndex].value) {
+// 	case '1': 
+// 	imgTerm.classList.remove('Op-2');
+// 	imgTerm.classList.remove('Op-3');
+// 	imgTerm.classList.add('Op-1'); break;
+
+//     case '2': 
+//     imgTerm.classList.remove('Op-1');
+//     imgTerm.classList.remove('Op-3');
+//     imgTerm.classList.add('Op-2'); break;
+
+//     case '3': 
+//     imgTerm.classList.remove('Op-1');
+//     imgTerm.classList.remove('Op-2');
+//     imgTerm.classList.add('Op-3'); break;
 // }
 
-// -----------------------
-// for(let i=0; i<select.options.length; i++){
-
-//     if(select.options[i].selected){
-//       select.options[i].setAttribute('selected', '');
-//     }
-//     else{
-//       select.options[i].removeAttribute('selected', '');
-//     }
-//   }
-
-// ------------------------------
-  // if(select.options[0].selected){
-  //     select.options[0].setAttribute('selected', '') && select.options[1].removeAttribute('selected', '') && select.options[2].removeAttribute('selected', '');
-  //   }
-  //   else{ if (select.options[1].selected){ 
-
-  //     		select.options[1].setAttribute('selected', '') && select.options[0].removeAttribute('selected', '') && select.options[2].removeAttribute('selected', '');
-  //   		} else {
-  //   			select.options[2].setAttribute('selected', '') && select.options[1].removeAttribute('selected', '') && select.options[0].removeAttribute('selected', '')
-  //   		}
-  //   } 
