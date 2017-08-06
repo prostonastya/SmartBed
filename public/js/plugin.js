@@ -3,6 +3,8 @@ var val = select.options[select.selectedIndex].value;
 var buttonTemp = document.getElementById('SaveTemp');
 var imgTerm = document.querySelector('.term');
 var btnList = document.getElementById('get-button');
+var table = document.querySelectorAll('table');
+var upBtn = document.querySelectorAll('.update-button');
 
 
 buttonTemp.addEventListener('click', ChangeTempMode);
@@ -114,3 +116,67 @@ function createBed(event){
         console.log('Request failed', error);
     })
 }
+
+// PUT/ UPDATE
+
+// table.addEventListener('click', rename);
+
+// function rename(event){
+
+//     var target = event.target;
+//     if (target.tagName != 'TD') return;
+//     highlight(target);
+
+//     // var rowEl = upBtn.closest('tr');
+//     // var id = rowEl.getElementsByClassName('id').textContent;
+//     // var newName = rowEl.getElementsByClassName('name').value;
+
+//     fetch('/beds/' +id, {        
+//         headers: {
+//         'Accept': 'application/json',
+//         'Content-Type': 'application/json'
+//         },
+//         method : 'PUT',
+//         body: JSON.stringify({ newName: newName })
+//         }).then(function(res){          
+//         return res.json()        
+//         }).then(function (data) {  
+//         console.log('PUT succeeded', data);
+//         showList();      
+
+//         }).catch(function(error) {  
+//         console.log('Request failed', error);
+//     })
+
+// }
+
+// table.onclick = function(event) {
+//   var target = event.target; // где был клик?
+
+//   if (target.tagName != upBtn) {
+//     console.log('table')
+//   }
+//   else {
+//     var rowEl = upBtn.closest('tr');
+//     var id = rowEl.getElementsByClassName('id').textContent;
+//     var newName = rowEl.getElementsByClassName('name').value;
+
+//     fetch('/beds/' +id, {        
+//         headers: {
+//         'Accept': 'application/json',
+//         'Content-Type': 'application/json'
+//         },
+//         method : 'PUT',
+//         body: JSON.stringify({ newName: newName })
+//         }).then(function(res){          
+//         return res.json()        
+//         }).then(function (data) {  
+//         console.log('PUT succeeded', data);
+//         showList();      
+
+//         }).catch(function(error) {  
+//         console.log('Request failed', error);
+//     }) 
+//   }
+  
+// };

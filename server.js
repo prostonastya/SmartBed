@@ -3,6 +3,8 @@ var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
 var fs = require('fs');
+var currentId = 2;
+
 
 var beds = [
 {
@@ -15,7 +17,7 @@ var beds = [
 }
 ];
 
-var currentId = 2;
+
 
 
 app.use(bodyParser());
@@ -132,4 +134,19 @@ app.post('/beds/create', function(req, res) {
     });
 
     res.send('Successfully created bed!');
+});
+
+app.put('/beds/:id', function(req, res) {
+    var id = req.params.id;
+    var newName = req.body.newName;
+
+    var found = false;
+
+    beds.forEach(function(bed, index) {
+        if (!found && bed.id === Number(id)) {
+            bed.name = newName;
+        }
+    });
+
+    res.send('Succesfully updated bed!');
 });
