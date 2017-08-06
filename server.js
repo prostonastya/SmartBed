@@ -4,7 +4,22 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var fs = require('fs');
 
+var beds = [
+{
+    id: 1,
+    name: 'red bed'
+},
+{
+    id: 2,
+    name: 'white bed'
+}
+];
+
+var currentId = 2;
+
+
 app.use(bodyParser());
+app.use(express.static(__dirname + '/public'));
 
 
 // load index page
@@ -12,7 +27,7 @@ app.get('/', function (req, res) {
    
     var mode = JSON.parse(fs.readFileSync('./public/temp.json', 'utf8'));
     res.send(indexTemplate(mode.heat)); 
-    app.use(express.static(__dirname + '/public'));
+    
 });
 
 function indexTemplate(heat) {
@@ -42,11 +57,23 @@ function indexTemplate(heat) {
                             </select>
                             <input type="button" value="Save Changes" id="SaveTemp">
                         </form>
-                    </li>
-                    <li>Фича 2</li>
-                    <li>Фича 3</li>
-                    <li>Фича 4</li>
+                    </li>                    
                 </ul>
+                <button id="get-button">GET all beds</button>
+                <form id="create-form">
+                    <input type="text" id="create-input">
+                    <button>Create new bed</button>
+                </form>                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
             </div>
             <div class="content"> 
                 <img class="main_photo" src="img/bed_simple.png" alt=""> 
@@ -86,7 +113,23 @@ app.post('/mode', (req, res) => {
 });
 
 
-
 app.listen(3000, function () {
     console.log('App listening on port 3000!');
+});
+
+
+app.get('/beds', function(req, res) {
+    res.send({ beds: beds });
+});
+
+app.post('/beds/create', function(req, res) {
+    var bedName = req.body.name;
+    currentId++;
+
+    beds.push({
+        id: currentId,
+        name: bedName
+    });
+
+    res.send('Successfully created bed!');
 });

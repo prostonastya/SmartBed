@@ -136,6 +136,9 @@ input[type="button"]{
 	background-image: url(../img/term_4.png);
 }
 
+input[type="text"]{
+	color: black;
+}
 
 @media (max-width: 1023px) {
   .flex-container{
