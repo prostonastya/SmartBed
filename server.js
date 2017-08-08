@@ -64,7 +64,7 @@ function indexTemplate(heat) {
                 <button id="get-button">GET all beds</button>
                 <form id="create-form">
                     <input type="text" id="create-input">
-                    <button>Create new bed</button>
+                    <button id= "create">Create new bed</button>
                 </form>                
                 <table>
                     <thead>
@@ -136,17 +136,29 @@ app.post('/beds/create', function(req, res) {
     res.send('Successfully created bed!');
 });
 
-app.put('/beds/:id', function(req, res) {
-    var id = req.params.id;
-    var newName = req.body.newName;
+app.put('/beds/:id', function(req, res) {  
+     
+    var id = req.params.id;   
+    var newName = req.body.newName;   
 
-    var found = false;
+    beds.forEach(function(bed, index) {    
+       
+        if (bed.id === Number(id)) {
+            bed.name = newName;
+        }
+    });    
+
+    res.send('Succesfully updated bed!');
+});
+
+app.delete('/beds/delete/:id', function(req, res) {
+    var id = req.params.id;   
 
     beds.forEach(function(bed, index) {
-        if (!found && bed.id === Number(id)) {
-            bed.name = newName;
+        if (bed.id === Number(id)) {
+            beds.splice(index, 1);
         }
     });
 
-    res.send('Succesfully updated bed!');
+    res.send('Successfully deleted product!');
 });

@@ -4,7 +4,7 @@ var buttonTemp = document.getElementById('SaveTemp');
 var imgTerm = document.querySelector('.term');
 var btnList = document.getElementById('get-button');
 var table = document.querySelectorAll('table');
-var upBtn = document.querySelectorAll('.update-button');
+var upBtn = document.getElementsByClassName('update-button');
 
 
 buttonTemp.addEventListener('click', ChangeTempMode);
@@ -76,8 +76,8 @@ function showList(){
                             <td class="id">${bed.id}</td>
                             <td><input type="text" class="name" value="${bed.name}"></td>
                             <td>
-                                <button class="update-button">UPDATE</button>
-                                <button class="delete-button">DELETE</button>
+                                <button class="update-button" onclick="return rename();">UPDATE</button>
+                                <button class="delete-button" onclick="return delBeds();">DELETE</button>
                             </td>
                         </tr> `                    
                     tbodyEl.innerHTML = text;
@@ -119,64 +119,58 @@ function createBed(event){
 
 // PUT/ UPDATE
 
-// table.addEventListener('click', rename);
+// upBtn.forEach(function(oneBtn){
+//     oneBtn.addEventListener('click', rename())
+// });
 
-// function rename(event){
+function rename(){
+    
+    var target = event.target;
+    var rowEl = target.closest('tr');    
+    var id = rowEl.getElementsByClassName('id')[0].textContent; 
+    // console.log(id);   
+    var newName = rowEl.getElementsByClassName('name')[0].value;
+    // console.log(newName);
 
-//     var target = event.target;
-//     if (target.tagName != 'TD') return;
-//     highlight(target);
+    fetch('/beds/' +id, {        
+        headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+        },
+        method : 'PUT',
+        body: JSON.stringify({ newName: newName })
+        }).then(function(res){          
+        return res.json()        
+        }).then(function (data) {  
+        console.log('PUT succeeded', data);
+        // showList();      
 
-//     // var rowEl = upBtn.closest('tr');
-//     // var id = rowEl.getElementsByClassName('id').textContent;
-//     // var newName = rowEl.getElementsByClassName('name').value;
+        }).catch(function(error) {  
+        console.log('Request failed', error);
+    })
+};
 
-//     fetch('/beds/' +id, {        
-//         headers: {
-//         'Accept': 'application/json',
-//         'Content-Type': 'application/json'
-//         },
-//         method : 'PUT',
-//         body: JSON.stringify({ newName: newName })
-//         }).then(function(res){          
-//         return res.json()        
-//         }).then(function (data) {  
-//         console.log('PUT succeeded', data);
-//         showList();      
 
-//         }).catch(function(error) {  
-//         console.log('Request failed', error);
-//     })
+// DELETE
+function delBeds(){
+    var target = event.target;
+    var rowEl = target.closest('tr');    
+    var id = rowEl.getElementsByClassName('id')[0].textContent; 
 
-// }
+    fetch('/beds/delete/' +id, {        
+        headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+        },
+        method : 'DELETE',        
+        }).then(function(res){          
+        return res.json()        
+        }).then(function (data) {  
+        console.log('PUT succeeded', data);
+        // showList();      
 
-// table.onclick = function(event) {
-//   var target = event.target; // где был клик?
-
-//   if (target.tagName != upBtn) {
-//     console.log('table')
-//   }
-//   else {
-//     var rowEl = upBtn.closest('tr');
-//     var id = rowEl.getElementsByClassName('id').textContent;
-//     var newName = rowEl.getElementsByClassName('name').value;
-
-//     fetch('/beds/' +id, {        
-//         headers: {
-//         'Accept': 'application/json',
-//         'Content-Type': 'application/json'
-//         },
-//         method : 'PUT',
-//         body: JSON.stringify({ newName: newName })
-//         }).then(function(res){          
-//         return res.json()        
-//         }).then(function (data) {  
-//         console.log('PUT succeeded', data);
-//         showList();      
-
-//         }).catch(function(error) {  
-//         console.log('Request failed', error);
-//     }) 
-//   }
-  
-// };
+        }).catch(function(error) {  
+        console.log('Request failed', error);
+    })
+    
+}

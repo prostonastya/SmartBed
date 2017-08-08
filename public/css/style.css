@@ -59,21 +59,13 @@ header .flex-container{
 	height: 150px;
 	
 }
-.name{
-	
-    color: white;
-    font-size: 25px;
-    margin-left: 50px;    
-}
-
 .flex-container{
 	display:flex;
 	flex-direction: row;
 }
 
-
 .sidebar{
-	width: 30%;
+	width: 40%;
 	height: 600px;
 	background: aquamarine;
 	
@@ -102,12 +94,34 @@ input[type="button"]{
 	margin-top: 20px;
 }
 
+#create-form{
+	margin-bottom: 20px;
+}
+
+.name{	
+    color: white;
+    font-size: 20px;
+    margin-left: 20px;        
+}
+
+.update-button, .delete-button, #get-button, #create{
+	background: lightseagreen;
+	margin-left: 10px;
+}
+
+#get-button{
+	margin-top: 25px;
+}
+
+#create-input{
+margin-left: 10px;
+}
+
 .content{
 	float: left;
-	width: 70%;
+	width: 60%;
 	height: 600px;
-	background: gainsboro;
-	
+	background: gainsboro;	
 }
 
 .term{
