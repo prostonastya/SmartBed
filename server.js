@@ -26,10 +26,8 @@ app.use(express.static(__dirname + '/public'));
 
 // load index page
 app.get('/', function (req, res) {   
-   
-    var mode = JSON.parse(fs.readFileSync('./public/temp.json', 'utf8'));
+  var mode = JSON.parse(fs.readFileSync('./public/temp.json', 'utf8'));
     res.send(indexTemplate(mode.heat)); 
-    
 });
 
 function indexTemplate(heat) {
@@ -107,7 +105,8 @@ app.post('/mode', (req, res) => {
         fs.writeFile('./public/temp.json', JSON.stringify(data), function(){
             console.log('Finished'); 
         });
-        res.send(req.body);        
+        res.send(req.body);     
+//        console.log(req.body)
     }    
 
   res.end();
@@ -138,13 +137,12 @@ app.post('/beds/create', function(req, res) {
 
 app.put('/beds/:id', function(req, res) {  
      
-    var id = req.params.id;   
+    var id = Number(req.params.id);   
     var newName = req.body.newName;   
 
-    beds.forEach(function(bed, index) {    
-       
-        if (bed.id === Number(id)) {
-            bed.name = newName;
+    beds.forEach(function(bed, index) {        
+        if (bed.id === id) {
+            bed.name = newName;            
         }
     });    
 

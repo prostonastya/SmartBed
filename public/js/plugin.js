@@ -25,7 +25,8 @@ function ChangeTempMode(){
         'Content-Type': 'application/json'
         },
         method : 'POST',
-        body: JSON.stringify(mode)
+//        body: JSON.stringify(mode)
+        body: data
       	}).then(function(res){      	
         return res.json()        
     	}). then(function (data) {  
@@ -139,14 +140,13 @@ function rename(){
         },
         method : 'PUT',
         body: JSON.stringify({ newName: newName })
-        }).then(function(res){          
-        return res.json()        
         }).then(function (data) {  
+        
         console.log('PUT succeeded', data);
-        // showList();      
+         showList();      
 
         }).catch(function(error) {  
-        console.log('Request failed', error);
+        console.log('Request failed', error.stack);    
     })
 };
 
@@ -163,14 +163,13 @@ function delBeds(){
         'Content-Type': 'application/json'
         },
         method : 'DELETE',        
-        }).then(function(res){          
-        return res.json()        
         }).then(function (data) {  
         console.log('PUT succeeded', data);
-        // showList();      
+        showList();      
 
         }).catch(function(error) {  
         console.log('Request failed', error);
+        
     })
     
 }
