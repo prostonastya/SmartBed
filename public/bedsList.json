@@ -1,7 +1,1 @@
-[{
-    "id": "1"
-    , "name": "red bed"
-}, {
-    "id": "2"
-    , "name": "white bed"
-}]
+[{"id":1,"name":"red bed"},{"id":2,"name":"small bed"},{"id":3,"name":"white bed"},{"id":4,"name":"bed 1"},{"id":5,"name":"bed 34"},{"id":6,"name":"BEd bed"}]

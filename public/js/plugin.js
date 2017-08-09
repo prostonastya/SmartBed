@@ -120,18 +120,12 @@ function createBed(event){
 
 // PUT/ UPDATE
 
-// upBtn.forEach(function(oneBtn){
-//     oneBtn.addEventListener('click', rename())
-// });
-
 function rename(){
     
     var target = event.target;
     var rowEl = target.closest('tr');    
-    var id = rowEl.getElementsByClassName('id')[0].textContent; 
-    // console.log(id);   
+    var id = rowEl.getElementsByClassName('id')[0].textContent;   
     var newName = rowEl.getElementsByClassName('name')[0].value;
-    // console.log(newName);
 
     fetch('/beds/' +id, {        
         headers: {
@@ -140,10 +134,10 @@ function rename(){
         },
         method : 'PUT',
         body: JSON.stringify({ newName: newName })
-        }).then(function (data) {  
-        
+        }).then(function (data) {          
         console.log('PUT succeeded', data);
-         showList();      
+        alert('Bed name changed');
+        showList();      
 
         }).catch(function(error) {  
         console.log('Request failed', error.stack);    

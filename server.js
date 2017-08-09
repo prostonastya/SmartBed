@@ -3,24 +3,12 @@ var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
 var fs = require('fs');
-var currentId = 2;
-//var beds = [
-//    {
-//        id: 1
-//        , name: 'red bed'
-//}
-//    , {
-//        id: 2
-//        , name: 'white bed'
-//}
-//];
+
 app.use(bodyParser());
 app.use(express.static(__dirname + '/public'));
+
 // load index page
 app.get('/', function (req, res) {
-    //  var mode = JSON.parse(fs.readFileSync('./public/temp.json', 'utf8'));
-    //    res.send(indexTemplate(mode.heat)); 
-    //});
     var mode;
     fs.readFile('./public/temp.json', 'utf8', (err, data) => {
         if (err) throw err;
@@ -86,9 +74,8 @@ function indexTemplate(heat) {
     var res = header + main + footer;
     return res;
 }
+
 app.post('/mode', (req, res) => {
-    console.log(req.body);
-    console.log(req.body.heat);
     saveToPublicFolder(req.body);
 
     function saveToPublicFolder(data) {
@@ -96,27 +83,14 @@ app.post('/mode', (req, res) => {
             console.log('Finished');
         });
         res.send(req.body);
-        //        console.log(req.body)
     }
     res.end();
 });
 app.listen(3000, function () {
     console.log('App listening on port 3000!');
 });
-//var readBedsList = function () {
-//    var res;
-//    fs.readFile('./public/bedsList.json', 'utf8', (err, data) => {
-//        if (err) throw err;
-//        res = JSON.parse(data);
-//    });
-//    console.log(res);
-//    //return res;
-//};
+
 app.get('/beds', function (req, res) {
-    //    fs.readFile('./public/temp.json', 'utf8', (err, data) => {
-    //        if (err) throw err;
-    //        res.send(indexTemplate(JSON.parse(data).heat));
-    //    });
     fs.readFile('./public/bedsList.json', 'utf8', (err, data) => {
         if (err) throw err;
         var beds = JSON.parse(data);
@@ -125,31 +99,70 @@ app.get('/beds', function (req, res) {
         });
     });
 });
+
+
+
+// function to write in bedList.json
+function saveToBedList(data) {
+    fs.writeFile('./public/bedsList.json', JSON.stringify(data), function () {
+        console.log('rewrite');
+    });        
+}
+
+
 app.post('/beds/create', function (req, res) {
     var bedName = req.body.name;
-    currentId++;
-    beds.push({
-        id: currentId
-        , name: bedName
-    });
-    res.send('Successfully created bed!');
+    
+
+    fs.readFile('./public/bedsList.json', 'utf8', (err, data) => {
+        if (err) throw err;
+        var beds = JSON.parse(data);
+        currentId = beds.length +1;
+        beds.push({
+            id: currentId,
+            name: bedName
+            });        
+        saveToBedList(beds);
+    });        
+    res.send('Successfully created bed!');       
 });
+
 app.put('/beds/:id', function (req, res) {
     var id = Number(req.params.id);
     var newName = req.body.newName;
-    beds.forEach(function (bed, index) {
-        if (bed.id === id) {
-            bed.name = newName;
-        }
+
+    fs.readFile('./public/bedsList.json', 'utf8', (err, data) => {
+        if (err) throw err;
+        var beds = JSON.parse(data);
+        
+        beds.forEach(function (bed, index) {
+            if (bed.id === id) {
+                bed.name = newName;
+            }
+        });  
+        saveToBedList(beds);
     });
     res.send('Succesfully updated bed!');
 });
+
 app.delete('/beds/delete/:id', function (req, res) {
     var id = req.params.id;
-    beds.forEach(function (bed, index) {
+
+
+    fs.readFile('./public/bedsList.json', 'utf8', (err, data) => {
+        if (err) throw err;
+        var beds = JSON.parse(data);
+
+        beds.forEach(function (bed, index) {
         if (bed.id === Number(id)) {
             beds.splice(index, 1);
+        }        
+    });
+        for (let i = 0; i < beds.length; i++) {
+            beds[i].id = i+1;
         }
+        saveToBedList(beds);
     });
     res.send('Successfully deleted product!');
 });
+
