@@ -5,17 +5,15 @@ var imgTerm = document.querySelector('.term');
 var btnList = document.getElementById('get-button');
 var table = document.querySelectorAll('table');
 var upBtn = document.getElementsByClassName('update-button');
+var capture = document.getElementById('capture');
 
 
 buttonTemp.addEventListener('click', ChangeTempMode);
 
 function ChangeTempMode(){
 	var val = select.options[select.selectedIndex].value; 
-
 	let mode = {};
-
-    mode['heat'] = val;
-    
+    mode['heat'] = val;    
 
     let data = JSON.stringify(mode);
 
@@ -25,14 +23,12 @@ function ChangeTempMode(){
         'Content-Type': 'application/json'
         },
         method : 'POST',
-//        body: JSON.stringify(mode)
         body: data
       	}).then(function(res){      	
         return res.json()        
     	}). then(function (data) {  
     	console.log('Request succeeded with JSON response', data);         
-    	ChangePictureClass(data);
-
+    	ChangePictureClass(data);        
     	}).catch(function(error) {  
     	console.log('Request failed', error);  
   	});
@@ -68,6 +64,7 @@ function showList(){
         return res.json()        
         }). then(function (data) {  
         console.log('Req GET succeeded', data);
+        capture.style.display="table-row";
         var tbodyEl = document.querySelector('tbody');
                 var text = '';
                 tbodyEl.innerHTML = text;
@@ -81,10 +78,8 @@ function showList(){
                                 <button class="delete-button" onclick="return delBeds();">DELETE</button>
                             </td>
                         </tr> `                    
-                    tbodyEl.innerHTML = text;
-                    
-                }); 
-        
+                    tbodyEl.innerHTML = text;                    
+                });        
 
         }).catch(function(error) {  
         console.log('Request failed', error);  

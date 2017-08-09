@@ -49,7 +49,7 @@ function indexTemplate(heat) {
                 </form>                
                 <table>
                     <thead>
-                        <tr>
+                        <tr id="capture">
                             <th>ID</th>
                             <th>Name</th>
                             <th>Actions</th>

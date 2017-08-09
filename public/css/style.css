@@ -81,6 +81,9 @@ input[type="button"]{
 	background: lightseagreen;
 }
 
+#capture{
+    display: none;
+}
 
 .list li{	
 	font-size: 40px;
